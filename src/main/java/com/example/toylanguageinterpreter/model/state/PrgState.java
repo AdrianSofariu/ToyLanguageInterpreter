@@ -5,6 +5,7 @@ import com.example.toylanguageinterpreter.model.adt.MyIDictionary;
 import com.example.toylanguageinterpreter.model.adt.MyIHeap;
 import com.example.toylanguageinterpreter.model.adt.MyIList;
 import com.example.toylanguageinterpreter.model.adt.MyIStack;
+import com.example.toylanguageinterpreter.model.statements.CompoundStatement;
 import com.example.toylanguageinterpreter.model.statements.IStatement;
 import com.example.toylanguageinterpreter.model.values.IValue;
 import com.example.toylanguageinterpreter.model.values.StringValue;
@@ -114,6 +115,10 @@ public class PrgState{
         if(execStack.isEmpty())
             throw new EmptyStackException("Execution stack is empty");
         IStatement currentStatement = execStack.pop();
+        if(currentStatement instanceof CompoundStatement) {
+            currentStatement.execute(this);
+            currentStatement = execStack.pop();
+        }
         return currentStatement.execute(this);
     }
 }

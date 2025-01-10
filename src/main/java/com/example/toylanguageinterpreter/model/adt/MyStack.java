@@ -41,7 +41,14 @@ public class MyStack<T> implements MyIStack<T>{
 
         //preserve the order of the elements
         for(int i = stack.size() - 1; i >= 0; i--){
-            strStack.push(stack.get(i).toString());
+            //get string repr
+            String element = stack.get(i).toString();
+            //split the string by ;
+            String[] parts = element.split(";");
+            //add each part to the stack
+            for(String part : parts){
+                strStack.push(part + ";");
+            }
         }
 
         return strStack;

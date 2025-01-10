@@ -149,6 +149,7 @@ public class Controller{
         else{
             executor.shutdownNow();
             repo.setPrgList(prgList);
+            repo.notifyListeners();
         }
     }
 }

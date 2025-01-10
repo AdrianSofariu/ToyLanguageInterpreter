@@ -8,7 +8,6 @@ import com.example.toylanguageinterpreter.model.adt.MyStack;
 import com.example.toylanguageinterpreter.model.state.PrgState;
 import com.example.toylanguageinterpreter.model.statements.IStatement;
 import com.example.toylanguageinterpreter.model.values.IValue;
-import com.example.toylanguageinterpreter.model.values.IntValue;
 import com.example.toylanguageinterpreter.model.values.StringValue;
 import com.example.toylanguageinterpreter.repository.IRepository;
 import com.example.toylanguageinterpreter.repository.MyRepository;
@@ -85,6 +84,10 @@ public class ProgramSceneController{
     }
 
     public void update(){
+
+        if(currentPrgState == null)
+            return;
+
         //update the views
         outView.getItems().setAll(currentPrgState.getOutputList().toList());
         fileTableView.getItems().setAll(currentPrgState.getFileTable().toString());
@@ -93,10 +96,22 @@ public class ProgramSceneController{
         //update the number of program states
         nrStatesLabel.setText("Number of program states: " + repository.getStates().size());
 
+        if(repository.getStates().isEmpty()){
+            //empty the views
+            prgStatesView.getItems().clear();
+            fileTableView.getItems().clear();
+            exeStackView.getItems().clear();
+            heapView.getItems().clear();
+            symTableView.getItems().clear();
+            return;
+        }
+
         //update the program states view
         List<String> states = repository.getStates().stream().map(PrgState::getId).toList();
         prgStatesView.getItems().setAll(states);
 
+        if(currentPrgState == null)
+            return;
         //update the heap view
         List<HeapValue> HeapValues = currentPrgState.getHeap().getContent().entrySet().stream().map(e -> new HeapValue(e.getKey(), e.getValue())).toList();
         heapView.getItems().setAll(HeapValues);
@@ -112,6 +127,9 @@ public class ProgramSceneController{
 
     private void onChangePrgState(){
         //update the symTableView and the exeStackView
+        if(currentPrgState == null)
+            return;
+
         List<SymTableValue> SymTableValues = currentPrgState.getSymTable().getMap().entrySet().stream().map(e -> new SymTableValue(e.getKey(), e.getValue())).toList();
         symTableView.getItems().setAll(SymTableValues);
 

@@ -7,10 +7,6 @@ import com.example.toylanguageinterpreter.model.state.PrgState;
 import com.example.toylanguageinterpreter.model.values.IValue;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ArrayChangeListener;
-
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -44,7 +40,10 @@ public class MyRepository implements IRepository, Observable {
     public PrgState getState(int index) {
         if(index > 0)
             return prgStateList.get(index);
-        return prgStateList.getFirst();
+        else if(!prgStateList.isEmpty())
+            return prgStateList.getFirst();
+        else
+            return null;
     }
 
     @Override
