@@ -115,10 +115,6 @@ public class PrgState{
         if(execStack.isEmpty())
             throw new EmptyStackException("Execution stack is empty");
         IStatement currentStatement = execStack.pop();
-        if(currentStatement instanceof CompoundStatement) {
-            currentStatement.execute(this);
-            currentStatement = execStack.pop();
-        }
         return currentStatement.execute(this);
     }
 }
