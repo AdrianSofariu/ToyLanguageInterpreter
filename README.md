@@ -15,4 +15,12 @@ Instead, available programs are defined in a list using the toy language constru
 - **File Support**: The toy language supports files, though no text-to-instruction conversion is currently implemented.
 - **Instruction Set**: The interpreter currently supports a basic set of language constructs for managing variables, control flow, and simple operations.
 
+## 🧱 Structure
+The basic building blocks of the toy language are:
+- Expressions
+- Statements
+- Types
+- Values
+- TypeChecker
+
 ## This was an university project to explore the power of JAVA
